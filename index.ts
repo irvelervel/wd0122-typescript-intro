@@ -94,3 +94,131 @@ let verySpecificArray: [string, number, boolean] = ['simon', 10, true]
 // a tuple is useful for defining not only the possible types for an array,
 // but also the positions for those elements!
 console.log(verySpecificArray[0].length)
+
+// OBJECTS
+let student = {
+  name: 'Stefano',
+  surname: 'Casasola',
+  batch: 'WD012022',
+  year: 2022,
+}
+
+console.log(student.name.slice(0, 1))
+// console.log(student.firstName) // error, because it doesn't exist!
+
+// an interface is a way of defining a SHAPE for objects in TS
+// interfaces start with a capital letter
+interface EpicodeStudent {
+  // list here the properties for your object, with a corresponding type
+  name: string
+  surname: string
+  batch: string
+  year?: number | string
+}
+
+const marchStudent: EpicodeStudent = {
+  name: 'Simon',
+  surname: 'Kovac',
+  batch: 'WD012022',
+}
+
+let arrayOfStudents: EpicodeStudent[] = []
+arrayOfStudents.push(marchStudent, student)
+
+arrayOfStudents.forEach((s) => console.log(s.surname))
+
+let justNames = arrayOfStudents.map((s) => s.name)
+justNames.forEach((name) => console.log(name.toLowerCase()))
+
+interface EpicodeTeacher {
+  name: string
+  surname: string
+  skills: string[]
+  age: number
+}
+
+const unit2Teacher: EpicodeTeacher = {
+  name: 'Stefano',
+  surname: 'Miceli',
+  skills: ['fe', 'bootstrap', 'js'],
+  age: 33,
+}
+
+const unit3Teacher: EpicodeTeacher = {
+  name: 'Stefano',
+  surname: 'Casasola',
+  skills: ['react', 'redux', 'ts'],
+  age: 35,
+}
+
+let arrayOfTeachers: Array<EpicodeTeacher> = [unit2Teacher, unit3Teacher]
+
+arrayOfTeachers.forEach((t) => {
+  t.skills.forEach((s) => console.log(s))
+})
+
+interface CustomLocation {
+  city: string
+  address: string
+  zipCode?: number
+}
+
+interface Student {
+  name: string
+  location: CustomLocation
+}
+
+const myStudent: Student = {
+  name: 'Giorgio',
+  location: {
+    city: 'Venice',
+    address: 'Via Santi Martiri 20',
+  },
+}
+
+// difference between Type and Interface?
+// interfaces can be EXTENDED
+
+interface HumanBeing {
+  name: string
+  age: number
+}
+
+interface TennisPlayer extends HumanBeing {
+  favouriteHand: string
+  numberOfTournamentsWon: number
+}
+
+let nadal: TennisPlayer = {
+  name: 'Rafael Nadal',
+  age: 36,
+  favouriteHand: 'left',
+  numberOfTournamentsWon: 100,
+}
+
+// GENERICS
+// they are useful for allowing some flexibility in your interface
+// in order to RE-USE it the most amount of times possible!
+interface EpicodeModule<T> {
+  name: string
+  number: number
+  topics: T // this will vary every time you're using this interface!
+  // this adds some flexibility to your interface!
+}
+
+// in the fifth module you learned a lot of topics!
+// so in here I want topics to be string[]
+let fifthModule: EpicodeModule<string[]> = {
+  name: 'M5',
+  number: 5,
+  topics: ['js', 'dom_manipulation', 'loops'],
+}
+
+let fourteenthModule: EpicodeModule<string> = {
+  name: 'M14',
+  number: 14,
+  topics: 'Redux',
+}
+
+// D R Y
+// Don't Repeat Yourself!
